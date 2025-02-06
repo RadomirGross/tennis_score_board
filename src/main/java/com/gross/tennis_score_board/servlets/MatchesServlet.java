@@ -15,9 +15,10 @@ import java.util.List;
 @WebServlet("/matches")
 public class MatchesServlet extends HttpServlet {
     private MatchService matchService;
-
+    private final Integer PAGE_SIZE = 5;
 
     @Override
+
     public void init() throws ServletException {
         matchService = new MatchService(new MatchDAO());
     }
@@ -25,10 +26,18 @@ public class MatchesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String playerName = req.getParameter("filter_by_player_name");
+        try {
+            int page = Integer.parseInt(req.getParameter("page"));
+        } catch (NumberFormatException e) {
+            req.setAttribute("error", "Invalid page number");
+            req.getRequestDispatcher("matches.jsp").forward(req, resp);
+            return;
+        }
+
         List<Match> matches;
 
         if (playerName != null && !playerName.trim().isEmpty()) {
-            if (!validateSearchRequest(req, resp,playerName))
+            if (!validateSearchRequest(req, resp, playerName))
                 return;
             else
                 matches = matchService.getMatchesByPlayerName(playerName);
