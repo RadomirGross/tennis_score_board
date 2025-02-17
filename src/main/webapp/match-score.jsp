@@ -17,45 +17,82 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<h1>Текущий матч</h1>
+
+<h1>Текущий матч </h1>
+<p>${uuid}</p>
+
+
+
+<%--<c:if test="${not matchFinished}">--%>
+    <table class="scoreboard">
+        <tr>
+            <th>Игрок</th>
+            <th>Сеты</th>
+            <th>Геймы</th>
+            <th>Очки</th>
+            <th>Выиграл очко</th>
+        </tr>
+        <tr>
+            <td>${player1.name}</td>
+            <td>${matchScore.player1Sets}</td>
+            <td>${matchScore.player1Games}</td>
+            <td class="${matchScore.gameScore.advantagePlayer1 ? 'advantage' : ''}">
+                    ${matchScore.gameScore.player1Points.score}
+            </td>
+            <td>
+                <form action="/match-score" method="post">
+                    <input type="hidden" name="player_id" value="1">
+                    <input type="hidden" name="match_uuid" value="${uuid}">
+                    <button class="win-button" type="submit">игрок 1 выиграл текущее очко”</button>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>${player2.name}</td>
+            <td>${matchScore.player2Sets}</td>
+            <td>${matchScore.player2Games}</td>
+            <td class="${matchScore.gameScore.advantagePlayer2 ? 'advantage' : ''}">
+                    ${matchScore.gameScore.player2Points.score}
+            </td>
+            <td>
+                <form action="/match-score" method="post">
+                    <input type="hidden" name="player_id" value="2">
+                    <input type="hidden" name="match_uuid" value="${uuid}">
+                    <button class="win-button" type="submit">игрок 2 выиграл текущее очко”</button>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" >
+               <span class="status-box ${matchScore.gameScore.deuced ? 'active-deuce' : ''}">
+            Deuce
+        </span>
+               <%-- <c:if test="${matchScore.gameScore.deuced}">Deuce </c:if>--%>
+                <c:if test="${matchScore.gameScore.advantagePlayer1}">Преимущество ${player1.name}</c:if>
+                <c:if test="${matchScore.gameScore.advantagePlayer2}">Преимущество ${player2.name}</c:if>
+            </td>
+        </tr>
+
+        <tr>
+
+            <td colspan="5">
+        <span class="status-box ${matchScore.tieBreak ? 'active-tie-break' : ''}">
+            Tie Break
+        </span>
+            </td>
+        </td>
+        </tr>
+    </table>
+<%--</c:if>--%>
 
 <c:if test="${matchFinished}">
     <h2>Матч завершен!</h2>
-    <h3>Победитель: ${matchWinner != null ? matchWinner.name : 'Нет победителя'}</h3>
+    <h3>Победитель: ${matchWinner.name}</h3>
     <form action="/match-score" method="post">
         <input type="hidden" name="saveMatch" value="true">
         <input type="hidden" name="match_uuid" value="${uuid}">
-        <button type="submit">Вернуться на главную2</button>
+        <button type="submit">Вернуться на главную</button>
     </form>
 </c:if>
-
-<c:if test="${not matchFinished}">
-    <div class="match-score">
-        <div class="player player1">
-            <h2>${player1.name}</h2>
-            <div class="set-score">Сеты: ${matchScore.player1Sets}</div>
-            <div class="game-score">Геймы: ${matchScore.player1Games}</div>
-            <div class="current-score">Очки: ${matchScore.gameScore.player1Points}</div>
-            <form action="/match-score" method="post">
-                <input type="hidden" name="player_id" value="1">
-                <input type="hidden" name="match_uuid" value="${uuid}">
-                <button type="submit">Игрок 1 выиграл очко</button>
-            </form>
-        </div>
-
-        <div class="player player2">
-            <h2>${player2.name}</h2>
-            <div class="set-score">Сеты: ${matchScore.player2Sets}</div>
-            <div class="game-score">Геймы: ${matchScore.player2Games}</div>
-            <div class="current-score">Очки: ${matchScore.gameScore.player2Points}</div>
-            <form action="/match-score" method="post">
-                <input type="hidden" name="player_id" value="2">
-                <input type="hidden" name="match_uuid" value="${uuid}">
-                <button type="submit">Игрок 2 выиграл очко</button>
-            </form>
-        </div>
-    </div>
-</c:if>
-
 </body>
 </html>

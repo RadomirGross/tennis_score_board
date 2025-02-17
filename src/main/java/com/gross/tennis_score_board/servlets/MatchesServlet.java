@@ -26,24 +26,28 @@ public class MatchesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String playerName = req.getParameter("filter_by_player_name");
-        try {
-            int page = Integer.parseInt(req.getParameter("page"));
-        } catch (NumberFormatException e) {
-            req.setAttribute("error", "Invalid page number");
-            req.getRequestDispatcher("matches.jsp").forward(req, resp);
-            return;
+        String pageParam = req.getParameter("page_number");
+        int page = 1;
+        if (pageParam != null) {
+            page = Integer.parseInt(pageParam);
         }
-
         List<Match> matches;
-
+        boolean is_last_page;
         if (playerName != null && !playerName.trim().isEmpty()) {
             if (!validateSearchRequest(req, resp, playerName))
                 return;
-            else
-                matches = matchService.getMatchesByPlayerName(playerName);
-        } else
-            matches = matchService.getAllMatches();
+            else {
+                matches = matchService.getMatchesByPlayerNameWithPagination(playerName, page, PAGE_SIZE);
+                is_last_page = matchService.getMatchesByPlayerNameWithPagination(playerName, page + 1, PAGE_SIZE).isEmpty();
+            }
+        } else {
+            matches = matchService.getMatchesWithPagination(page, PAGE_SIZE);
+            is_last_page = matchService.getMatchesWithPagination(page + 1, PAGE_SIZE).isEmpty();
+        }
 
+        req.setAttribute("page_size", PAGE_SIZE);
+        req.setAttribute("is_last_page", is_last_page);
+        req.setAttribute("page_number", page);
         req.setAttribute("matches", matches);
         req.setAttribute("filter_by_player_name", playerName);
         req.getRequestDispatcher("matches.jsp").forward(req, resp);

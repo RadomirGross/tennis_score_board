@@ -74,8 +74,8 @@ public class NewMatchServlet extends HttpServlet {
             request.getRequestDispatcher("/new-match.jsp").forward(request, response);
             return;
         }
-        if (player1Name.length() > 20 || player2Name.length() > 20) {
-            request.setAttribute("errorMessage", "Имя не должно превышать 20 символов");
+        if (player1Name.length() > 30 || player2Name.length() > 30) {
+            request.setAttribute("errorMessage", "Имя не должно превышать 30 символов");
             request.getRequestDispatcher("/new-match.jsp").forward(request, response);
             return;
         }

@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
-import java.sql.PreparedStatement;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,15 +39,14 @@ public class MatchDAO {
 
     }
 
-    public List<Match> getMatchesByPlayerName(String name) {
-        List<Match> matches = getAllMatches();
-        List<Match> matchesByPlayerName = new ArrayList<Match>();
-        for (Match match : matches)
-            if (match.getPlayer1().getName().contains(name)
-                    || match.getPlayer2().getName().contains(name))
-                matchesByPlayerName.add(match);
+    public List<Match> getMatchesByPlayerName(String playerName) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<Match> query = session.createQuery("FROM Match m WHERE m.player1.name ILIKE :name OR " +
+                    "m.player2.name ILIKE :name ORDER BY id", Match.class);
+            query.setParameter("name", "%" + playerName + "%");
+            return query.list();
 
-        return matchesByPlayerName;
+        }
     }
 
     public List<Match> getMatches(int offset, int size) {
@@ -62,8 +61,8 @@ public class MatchDAO {
 
     public List<Match> getMatchesByPlayerNameWithPagination(String playerName, int offset, int size) {
         try (Session session = sessionFactory.openSession()) {
-            Query<Match> query = session.createQuery("FROM Match m WHERE m.player1.name LIKE :name OR " +
-                    "m.player2.name LIKE :name ORDER BY id", Match.class);
+            Query<Match> query = session.createQuery("FROM Match m WHERE m.player1.name ILIKE :name OR " +
+                    "m.player2.name ILIKE :name ORDER BY id", Match.class);
             query.setParameter("name", "%" + playerName + "%");
             query.setFirstResult(offset);
             query.setMaxResults(size);

@@ -1,5 +1,8 @@
 package com.gross.tennis_score_board.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Points {
     ZERO("0"),
     FIFTEEN("15"),

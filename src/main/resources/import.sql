@@ -8,6 +8,7 @@ INSERT INTO players (name) VALUES ('Марин Чилич');
 INSERT INTO players (name) VALUES ('Кеи Нисикори');
 INSERT INTO players (name) VALUES ('Доминик Тим');
 INSERT INTO players (name) VALUES ('Александр Зверев');
+INSERT INTO players (name) VALUES ('Мартин Иден');
 
 INSERT INTO matches (player1_id, player2_id, winner_id) VALUES (1, 2, 2);
 INSERT INTO matches (player1_id, player2_id, winner_id) VALUES (3, 4, 3);
@@ -24,3 +25,4 @@ INSERT INTO matches (player1_id, player2_id, winner_id) VALUES (3, 5, 3);
 INSERT INTO matches (player1_id, player2_id, winner_id) VALUES (4, 6, 6);
 INSERT INTO matches (player1_id, player2_id, winner_id) VALUES (7, 9, 9);
 INSERT INTO matches (player1_id, player2_id, winner_id) VALUES (8, 10, 8);
+INSERT INTO matches (player1_id, player2_id, winner_id) VALUES (11, 1, 11);

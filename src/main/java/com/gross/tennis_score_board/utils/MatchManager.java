@@ -41,7 +41,8 @@ public class MatchManager {
         MatchScore matchScore = getMatchScore(matchUuid);
         matchScore.getGameScore().updateScore(player1WinPoint);
         if (matchScore.checkWinnerGame())
-            matchScore.completeGame(matchScore.getGameScore().getGameWinner());
+        {matchScore.completeGame(matchScore.getGameScore().getGameWinner());
+            matchScore.checkTieBreak();}
 
 
     }

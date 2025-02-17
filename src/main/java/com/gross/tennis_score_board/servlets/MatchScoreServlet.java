@@ -39,6 +39,7 @@ public class MatchScoreServlet extends HttpServlet {
                 return;
             }
 
+
             req.setAttribute("player1", matchScore.getPlayer1());
             req.setAttribute("player2", matchScore.getPlayer2());
             req.setAttribute("uuid", matchUuid);

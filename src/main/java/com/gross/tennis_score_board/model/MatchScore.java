@@ -51,6 +51,7 @@ public Player getMatchWinner() {
 
     }
     public boolean checkWinnerGame() {
+
         return gameScore.getGameWinner()!=null;
     }
 
@@ -59,6 +60,11 @@ public Player getMatchWinner() {
         player1Games = 0;
         player2Games = 0;
         gameScore.resetGame();
+    }
+
+    public void checkTieBreak() {
+        if (player1Games == 6 && player2Games==6)
+            isTieBreak = true;
     }
 }
 

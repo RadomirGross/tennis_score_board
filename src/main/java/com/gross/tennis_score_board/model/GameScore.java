@@ -10,28 +10,31 @@ import lombok.ToString;
 public class GameScore {
     private Points player1Points = Points.ZERO;
     private Points player2Points = Points.ZERO;
+    private boolean isDeuced = false;
     private boolean isAdvantagePlayer1 = false;
     private boolean isAdvantagePlayer2 = false;
-    private Winner gameWinner =null;
-
+    private Winner gameWinner = null;
 
 
     public void updateScore(boolean player1WinPoint) {
-        if (isDeuced()) {
+        if (isDeuced) {
             handleDeuce(player1WinPoint);
             return;
         }
 
         if (player1WinPoint) {
-         if(player1Points==Points.FORTY)
-             gameWinner =Winner.PLAYER1;
-             else player1Points=player1Points.next();
-        } else if(player2Points==Points.FORTY)
-            gameWinner =Winner.PLAYER2;
-        else player2Points=player2Points.next();
+            if (player1Points == Points.FORTY)
+                gameWinner = Winner.PLAYER1;
+            else player1Points = player1Points.next();
+        } else if (player2Points == Points.FORTY)
+            gameWinner = Winner.PLAYER2;
+        else player2Points = player2Points.next();
+
+        if (checkDeuced())
+            isDeuced = true;
     }
 
-    private boolean isDeuced() {
+    private boolean checkDeuced() {
         return player1Points == Points.FORTY && player2Points == Points.FORTY;
     }
 
@@ -45,16 +48,16 @@ public class GameScore {
         } else if (isAdvantagePlayer1) {
             isAdvantagePlayer1 = false;
         } else if (isAdvantagePlayer2) {
-            gameWinner =Winner.PLAYER2;
+            gameWinner = Winner.PLAYER2;
         } else isAdvantagePlayer2 = true;
     }
 
-   public void resetGame()
-   {
-       player1Points = Points.ZERO;
-       player2Points = Points.ZERO;
-       isAdvantagePlayer1 = false;
-       isAdvantagePlayer2 = false;
-       gameWinner =null;
-   }
+    public void resetGame() {
+        player1Points = Points.ZERO;
+        player2Points = Points.ZERO;
+        isAdvantagePlayer1 = false;
+        isAdvantagePlayer2 = false;
+        isDeuced = false;
+        gameWinner = null;
+    }
 }

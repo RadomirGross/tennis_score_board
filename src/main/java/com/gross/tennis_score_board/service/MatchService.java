@@ -24,4 +24,14 @@ public List<Match> getAllMatches() {
 public List<Match> getMatchesByPlayerName(String name) {
     return matchDAO.getMatchesByPlayerName(name);
 }
+
+public List<Match> getMatchesWithPagination(int page, int size) {
+    int offset = (page - 1) * size;
+    return matchDAO.getMatches(offset, size);
+}
+
+public List<Match> getMatchesByPlayerNameWithPagination(String playerName,int page, int size ) {
+    int offset = (page - 1) * size;
+    return matchDAO.getMatchesByPlayerNameWithPagination(playerName, offset, size);
+}
 }

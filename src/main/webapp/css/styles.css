@@ -18,22 +18,7 @@ nav {
     align-items: center;
 }
 
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: white;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 200px;
-}
 
-.btn:hover {
-    background-color: #45a049;
-}
 
 form {
     display: flex;
@@ -74,6 +59,115 @@ table th, table td {
 
 .pagination {
     display: flex;
+    align-items: center;
+    gap: 10px;
     justify-content: center;
     margin-top: 20px;
+}
+
+.home-button {
+    display: block;
+    margin-top: 20px; /* Отступ сверху */
+    text-align: center;
+}
+button[onclick="window.location.href='/'"] {
+    margin-top: 20px;
+}
+
+.btn[disabled] {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+.score-box {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+    line-height: 30px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.deuce {
+    background-color: red; /* Красный для дьюса */
+    color: white;
+}
+
+.advantage {
+    background-color: blue; /* Синий для преимущества */
+    color: white;
+}
+
+.empty {
+    background-color: lightgray; /* Серый для пустого квадрата */
+    border: 1px solid darkgray;
+}
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.scoreboard {
+    width: 60%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-size: 18px;
+}
+
+.scoreboard th, .scoreboard td {
+    border: 2px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+.scoreboard th {
+    background-color: #f2f2f2;
+}
+
+.advantage {
+    background-color: #ffcc80;
+}
+
+.deuce {
+    background-color: #ff7043;
+    color: white;
+    font-weight: bold;
+}
+
+.win-button {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.win-button:hover {
+    background-color: #45a049;
+}
+
+.status-box {
+    background-color: #bdbdbd; /* Серый фон для неактивного состояния */
+    color: #757575; /* Серый текст */
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 5px;
+    display: inline-block;
+    min-width: 100px;
+    text-align: center;
+    transition: 0.3s; /* Плавный переход */
+}
+
+/* Когда Deuce или TieBreak активно */
+.active-deuce {
+    background-color: #ff7043; /* Оранжевый */
+    color: white;
+}
+
+.active-tie-break {
+    background-color: #42a5f5; /* Синий */
+    color: white;
 }
