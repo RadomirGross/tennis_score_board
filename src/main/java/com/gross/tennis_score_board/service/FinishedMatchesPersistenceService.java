@@ -15,13 +15,5 @@ public class FinishedMatchesPersistenceService {
     }
 
 
-    public void save(UUID uuid, Player winner) {
-    Match match = new Match();
-    MatchScore matchScore = onGoingMatches.get(uuid);
-        match.setPlayer1(matchScore.getPlayer1());
-        match.setPlayer2(matchScore.getPlayer2());
-        match.setWinner(winner);
-        matchService.saveMatch(match);
-        onGoingMatches.remove(uuid);
-    }
+
 }
