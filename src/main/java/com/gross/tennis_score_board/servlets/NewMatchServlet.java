@@ -54,6 +54,7 @@ public class NewMatchServlet extends HttpServlet {
         Player player2 = playerService.findOrCreatePlayer(player2Name);
 
         UUID matchUuid = matchManager.createNewMatch(player1, player2);
+
         request.getSession().setAttribute("matchUuid", matchUuid);
         response.sendRedirect("/match-score?uuid=" + matchUuid.toString());
     }
@@ -64,7 +65,7 @@ public class NewMatchServlet extends HttpServlet {
             request.getRequestDispatcher("/new-match.jsp").forward(request, response);
             return;
         }
-        if (!player1Name.matches("[а-яА-Яa-zA-Z ]+") || !player2Name.matches("[а-яА-Яa-zA-Z ]+")) {
+        if (!player1Name.matches("[а-яА-ЯёЁa-zA-Z ]+") || !player2Name.matches("[а-яА-ЯёЁa-zA-Z ]+")) {
             request.setAttribute("errorMessage", "Имена могут содержать только буквы и пробел.");
             request.getRequestDispatcher("new-match.jsp").forward(request, response);
             return;

@@ -17,13 +17,14 @@ public class MatchScore {
     private int player1Games = 5;
     private int player2Games = 5;
     private boolean isTieBreak = false;
+    private final int SETS_TO_WIN=2;
 
     public MatchScore() {
         this.gameScore = new GameScore();
     }
 
     public boolean isFinished() {
-        return player1Sets == 2 || player2Sets == 2;
+        return player1Sets == SETS_TO_WIN || player2Sets == SETS_TO_WIN;
     }
 
 public Player getMatchWinner() {
@@ -51,7 +52,6 @@ public Player getMatchWinner() {
 
     }
     public boolean checkWinnerGame() {
-
         return gameScore.getGameWinner()!=null;
     }
 

@@ -43,8 +43,6 @@ public class MatchManager {
         if (matchScore.checkWinnerGame())
         {matchScore.completeGame(matchScore.getGameScore().getGameWinner());
             matchScore.checkTieBreak();}
-
-
     }
 
     public MatchScore getMatchScore(UUID uuid) {
@@ -61,11 +59,6 @@ public class MatchManager {
 
     public Match saveMatch(UUID uuid, Player winner) {
         Match match = new Match();
-        System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        System.out.println(onGoingMatches);
-        for (MatchScore value : onGoingMatches.values()) {
-            System.out.println(value.toString());
-        }
         MatchScore matchScore = onGoingMatches.get(uuid);
         match.setPlayer1(matchScore.getPlayer1());
         match.setPlayer2(matchScore.getPlayer2());

@@ -43,7 +43,9 @@
                 <form action="/match-score" method="post">
                     <input type="hidden" name="player_id" value="1">
                     <input type="hidden" name="match_uuid" value="${uuid}">
-                    <button class="win-button" type="submit">игрок 1 выиграл текущее очко”</button>
+                    <button class="win-button" type="submit" ${matchFinished ? 'disabled' : ''}>
+                        Игрок 1 выиграл текущее очко
+                    </button>
                 </form>
             </td>
         </tr>
@@ -58,7 +60,9 @@
                 <form action="/match-score" method="post">
                     <input type="hidden" name="player_id" value="2">
                     <input type="hidden" name="match_uuid" value="${uuid}">
-                    <button class="win-button" type="submit">игрок 2 выиграл текущее очко”</button>
+                    <button class="win-button" type="submit" ${matchFinished ? 'disabled' : ''}>
+                        Игрок 2 выиграл текущее очко
+                    </button>
                 </form>
             </td>
         </tr>
