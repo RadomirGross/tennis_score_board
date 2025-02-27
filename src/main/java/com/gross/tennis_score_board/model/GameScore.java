@@ -3,9 +3,11 @@ package com.gross.tennis_score_board.model;
 import com.gross.tennis_score_board.enums.Points;
 import com.gross.tennis_score_board.enums.Winner;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
+@Setter
 @ToString
 public class GameScore {
     private Points player1Points = Points.ZERO;
@@ -16,12 +18,19 @@ public class GameScore {
     private Winner gameWinner = null;
 
 
-    public void updateScore(boolean player1WinPoint) {
+    public void increasePointInGame(boolean player1WinPoint) {
         if (isDeuced) {
             handleDeuce(player1WinPoint);
             return;
         }
 
+        updatePoints(player1WinPoint);
+
+        if (checkDeuced())
+            isDeuced = true;
+    }
+
+    private void updatePoints(boolean player1WinPoint) {
         if (player1WinPoint) {
             if (player1Points == Points.FORTY)
                 gameWinner = Winner.PLAYER1;
@@ -30,8 +39,6 @@ public class GameScore {
             gameWinner = Winner.PLAYER2;
         else player2Points = player2Points.next();
 
-        if (checkDeuced())
-            isDeuced = true;
     }
 
     private boolean checkDeuced() {

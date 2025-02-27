@@ -12,12 +12,12 @@ public class MatchScore {
     private Player player1;
     private Player player2;
     private final GameScore gameScore;
-    private int player1Sets = 1;
-    private int player2Sets = 1;
-    private int player1Games = 5;
-    private int player2Games = 5;
+    private int player1Sets = 0;
+    private int player2Sets = 0;
+    private int player1Games = 0;
+    private int player2Games = 0;
     private boolean isTieBreak = false;
-    private final int SETS_TO_WIN=2;
+    private final int SETS_TO_WIN = 2;
 
     public MatchScore() {
         this.gameScore = new GameScore();
@@ -27,11 +27,13 @@ public class MatchScore {
         return player1Sets == SETS_TO_WIN || player2Sets == SETS_TO_WIN;
     }
 
-public Player getMatchWinner() {
-        if(player1Sets == 2) return player1;
-        else if(player2Sets == 2) return player2;
+
+    public Player getMatchWinner() {
+        if (player1Sets == SETS_TO_WIN) return player1;
+        if (player2Sets == SETS_TO_WIN) return player2;
         return null;
-}
+    }
+
     public void completeGame(Winner winner) {
         if (winner == Winner.PLAYER1) {
             player1Games++;
@@ -48,11 +50,10 @@ public Player getMatchWinner() {
             player2Sets++;
             resetGames();
         }
-
-
     }
+
     public boolean checkWinnerGame() {
-        return gameScore.getGameWinner()!=null;
+        return gameScore.getGameWinner() != null;
     }
 
 
@@ -63,7 +64,7 @@ public Player getMatchWinner() {
     }
 
     public void checkTieBreak() {
-        if (player1Games == 6 && player2Games==6)
+        if (player1Games == 6 && player2Games == 6)
             isTieBreak = true;
     }
 }

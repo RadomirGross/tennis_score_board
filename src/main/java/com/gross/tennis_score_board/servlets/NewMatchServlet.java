@@ -1,12 +1,9 @@
 package com.gross.tennis_score_board.servlets;
 
-import com.gross.tennis_score_board.dao.MatchDAO;
 import com.gross.tennis_score_board.dao.PlayerDAO;
-import com.gross.tennis_score_board.model.Match;
 import com.gross.tennis_score_board.model.Player;
-import com.gross.tennis_score_board.service.MatchService;
+import com.gross.tennis_score_board.service.OngoingMatchesService;
 import com.gross.tennis_score_board.service.PlayerService;
-import com.gross.tennis_score_board.utils.MatchManager;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,30 +16,23 @@ import java.util.UUID;
 
 @WebServlet("/new-match")
 public class NewMatchServlet extends HttpServlet {
-
     private PlayerService playerService;
-    private MatchService matchService;
-    private MatchManager matchManager;
+
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         this.playerService = new PlayerService(new PlayerDAO());
-        this.matchService = new MatchService(new MatchDAO());
-        matchManager = (MatchManager) getServletContext().getAttribute("matchManager");
-
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         request.getRequestDispatcher("/new-match.jsp").forward(request, response);
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        OngoingMatchesService ongoingMatchesService=OngoingMatchesService.INSTANCE;
         String player1Name = request.getParameter("player1").trim();
         String player2Name = request.getParameter("player2").trim();
         request.setAttribute("player1Name", player1Name);
@@ -53,7 +43,8 @@ public class NewMatchServlet extends HttpServlet {
         Player player1 = playerService.findOrCreatePlayer(player1Name);
         Player player2 = playerService.findOrCreatePlayer(player2Name);
 
-        UUID matchUuid = matchManager.createNewMatch(player1, player2);
+
+        UUID matchUuid=ongoingMatchesService.addMatchScore(player1, player2);
 
         request.getSession().setAttribute("matchUuid", matchUuid);
         response.sendRedirect("/match-score?uuid=" + matchUuid.toString());

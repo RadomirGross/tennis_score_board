@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>Теннисное Табло</title>
     <link rel="stylesheet" href="css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+
 </head>
 <body>
 <h1>Теннисное Табло</h1>

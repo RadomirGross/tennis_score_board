@@ -1,23 +1,26 @@
 package com.gross.tennis_score_board.service;
 
 import com.gross.tennis_score_board.model.MatchScore;
-
-import java.util.UUID;
+import com.gross.tennis_score_board.model.Player;
 
 public class MatchScoreCalculationService {
-OngoingMatchesService ongoingMatchesService;
 
-public MatchScoreCalculationService() {
-    this.ongoingMatchesService = OngoingMatchesService.INSTANCE;
-}
 
-    public void processGamePoint(UUID matchUuid, boolean player1WinPoint) {
-        MatchScore matchScore = ongoingMatchesService.getMatchScore(matchUuid);
-        matchScore.getGameScore().updateScore(player1WinPoint);
+    public MatchScoreCalculationService() {
+
+    }
+
+    public void processGamePoint(boolean player1WinPoint,MatchScore matchScore) {
+        matchScore.getGameScore().increasePointInGame(player1WinPoint);
         if (matchScore.checkWinnerGame())
         {matchScore.completeGame(matchScore.getGameScore().getGameWinner());
             matchScore.checkTieBreak();}
     }
 
+    public Player checkMatchWinner(MatchScore matchScore) {
+        if (matchScore.isFinished())
+            return matchScore.getMatchWinner();
+        return null;
+    }
 
 }

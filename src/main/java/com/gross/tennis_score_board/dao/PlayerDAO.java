@@ -1,8 +1,10 @@
 package com.gross.tennis_score_board.dao;
 
+import com.gross.tennis_score_board.exceptions.PlayerFetchException;
+import com.gross.tennis_score_board.exceptions.SavingMatchException;
 import com.gross.tennis_score_board.model.Player;
 import com.gross.tennis_score_board.utils.HibernateSessionFactory;
-
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -29,6 +31,10 @@ public class PlayerDAO {
             session.persist(player);
             session.getTransaction().commit();
             return player;
+        } catch (HibernateException e) {
+            throw new SavingMatchException("Ошибка при сохранении игрока в базу данных", e);
+        } catch (Exception e) {
+            throw new SavingMatchException("Непредвиденная ошибка при сохранении игрока", e);
         }
     }
 
@@ -46,7 +52,12 @@ public class PlayerDAO {
                     "from Player where name=:name", Player.class);
             query.setParameter("name", name);
             return query.uniqueResult();
+        }catch (HibernateException e) {
+            throw new PlayerFetchException("Ошибка при получении игрока name: " + name, e);
+        } catch (Exception e) {
+            throw new PlayerFetchException("Непредвиденная ошибка при получении игрока name: " + name, e);
         }
+
     }
 
     public List<Player> getAllPlayers() {

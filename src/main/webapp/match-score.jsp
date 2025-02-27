@@ -1,20 +1,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ page import="java.util.*" %>
-<%
+<%--<%
     Map<String, Object> attributes = new HashMap<>();
     for (Enumeration<String> e = request.getAttributeNames(); e.hasMoreElements(); ) {
         String name = e.nextElement();
         attributes.put(name, request.getAttribute(name));
     }
     out.println("<pre>" + attributes + "</pre>");
-%>
+%>--%>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Счёт матча</title>
     <link rel="stylesheet" href="css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    </head>
 </head>
 <body>
 
@@ -22,8 +24,6 @@
 <p>${uuid}</p>
 
 
-
-<%--<c:if test="${not matchFinished}">--%>
     <table class="scoreboard">
         <tr>
             <th>Игрок</th>
@@ -71,7 +71,6 @@
                <span class="status-box ${matchScore.gameScore.deuced ? 'active-deuce' : ''}">
             Deuce
         </span>
-               <%-- <c:if test="${matchScore.gameScore.deuced}">Deuce </c:if>--%>
                 <c:if test="${matchScore.gameScore.advantagePlayer1}">Преимущество ${player1.name}</c:if>
                 <c:if test="${matchScore.gameScore.advantagePlayer2}">Преимущество ${player2.name}</c:if>
             </td>

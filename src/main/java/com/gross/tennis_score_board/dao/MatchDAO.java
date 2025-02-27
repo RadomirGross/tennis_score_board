@@ -1,15 +1,16 @@
 package com.gross.tennis_score_board.dao;
 
+import com.gross.tennis_score_board.exceptions.SavingMatchException;
+import com.gross.tennis_score_board.exceptions.MatchFetchException;
 import com.gross.tennis_score_board.model.Match;
 import com.gross.tennis_score_board.utils.HibernateSessionFactory;
 
-import org.h2.engine.Database;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MatchDAO {
@@ -26,6 +27,10 @@ public class MatchDAO {
             session.persist(match);
             session.getTransaction().commit();
             return match;
+        } catch (HibernateException e) {
+            throw new SavingMatchException("Ошибка при сохранении матча в базу данных", e);
+        } catch (Exception e) {
+            throw new SavingMatchException("Ошибка при сохранении матча", e);
         }
     }
 
@@ -45,7 +50,6 @@ public class MatchDAO {
                     "m.player2.name ILIKE :name ORDER BY id", Match.class);
             query.setParameter("name", "%" + playerName + "%");
             return query.list();
-
         }
     }
 
@@ -55,6 +59,10 @@ public class MatchDAO {
             query.setFirstResult(offset);
             query.setMaxResults(size);
             return query.list();
+        } catch (HibernateException e) {
+            throw new MatchFetchException("Ошибка при получении списка матчей", e);
+        } catch (Exception e) {
+            throw new MatchFetchException("Непредвиденная ошибка при получении матчей", e);
         }
 
     }
@@ -68,7 +76,11 @@ public class MatchDAO {
             query.setMaxResults(size);
             return query.list();
         }
-
+        catch (HibernateException e) {
+            throw new MatchFetchException("Ошибка при получении списка матчей по имени игрока: " + playerName, e);
+        } catch (Exception e) {
+            throw new MatchFetchException("Непредвиденная ошибка при получении матчей по имени игрока: " + playerName, e);
+        }
     }
 
 }
