@@ -21,10 +21,67 @@
 -  MapStruct
 -  JUnit 5
 - Apache Tomcat 10
+  Главная страница #
+  Ссылки, ведущие на страницы нового матча и списка завершенных матчей
+  Страница нового матча #
+  Адрес - /new-match.
+
+## Интерфейс:
+
+
+
+### Главная
+`/`
+
+- Ссылки:
+   - "Новый матч" (`/new-match`)
+   - "Сыгранные матчи" (`/matches`)
+
+### Новый матч 
+`/new-match`
+
+- Форма:
+   - "Имя игрока 1"
+   - "Имя игрока 2"
+   - Кнопка "Начать"
+- POST `/new-match`:
+   - Создает/проверяет игроков в БД
+   - Генерирует UUID и сохраняет матч в память
+   - Редирект: `/match-score?uuid=$match_id`
+
+### Счет матча 
+`/match-score?uuid=$match_id`
+
+- Таблица: имена, счет
+- Кнопки:
+   - "Игрок 1 выиграл"
+   - "Игрок 2 выиграл"
+- POST `/match-score?uuid=$match_id`:
+   - Обновляет счет
+   - Если матч окончен:
+      - Сохраняет в БД
+      - Удаляет из памяти
+      - Показывает результат
+
+### Сыгранные матчи 
+`/matches?page=$page_number&filter_by_player_name=$player_name`
+
+- Показывает список матчей
+- Фильтр по имени игрока
+
 
 ## Установка и запуск
 
 1. Клонируйте репозиторий:
 
    ```bash
-   git clone https://github.com/RadomirGross/tennis_score_board.git
+   git clone https://github.com/RadomirGross/tennis_score_board.git 
+
+2. Скомпилируйте WAR файл, запустите удобным способом
+
+
+
+#### Временный деплой: http://45.141.103.171:8080/
+
+Проект основан на курсе обучения Java Backend от Жукова С.Д.
+[Курс обучения Java Backend](https://zhukovsd.github.io/java-backend-learning-course/projects/tennis-scoreboard/)
