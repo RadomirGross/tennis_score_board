@@ -1,7 +1,6 @@
 package com.gross.tennis_score_board.dao;
 
 import com.gross.tennis_score_board.exceptions.PlayerFetchException;
-import com.gross.tennis_score_board.exceptions.SavingMatchException;
 import com.gross.tennis_score_board.exceptions.SavingPlayerException;
 import com.gross.tennis_score_board.model.Player;
 import com.gross.tennis_score_board.utils.HibernateSessionFactory;
@@ -10,7 +9,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
-import java.util.List;
 
 public class PlayerDAO {
     SessionFactory sessionFactory;
