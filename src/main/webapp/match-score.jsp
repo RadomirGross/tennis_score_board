@@ -1,14 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ page import="java.util.*" %>
-<%--<%
-    Map<String, Object> attributes = new HashMap<>();
-    for (Enumeration<String> e = request.getAttributeNames(); e.hasMoreElements(); ) {
-        String name = e.nextElement();
-        attributes.put(name, request.getAttribute(name));
-    }
-    out.println("<pre>" + attributes + "</pre>");
-%>--%>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
