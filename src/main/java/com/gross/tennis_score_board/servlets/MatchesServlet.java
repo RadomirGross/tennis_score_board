@@ -2,7 +2,6 @@ package com.gross.tennis_score_board.servlets;
 
 import com.gross.tennis_score_board.dao.MatchDAO;
 import com.gross.tennis_score_board.dto.MatchDTO;
-import com.gross.tennis_score_board.model.Match;
 import com.gross.tennis_score_board.service.MatchService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/matches")

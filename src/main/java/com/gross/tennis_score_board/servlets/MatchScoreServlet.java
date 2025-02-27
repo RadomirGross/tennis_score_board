@@ -17,12 +17,6 @@ import java.util.UUID;
 public class MatchScoreServlet extends HttpServlet {
 
 
-    @Override
-    public void init() throws ServletException {
-        // matchManager = (MatchManager) getServletContext().getAttribute("matchManager");
-
-
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -60,7 +54,7 @@ public class MatchScoreServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
         OngoingMatchesService ongoingMatchesService = OngoingMatchesService.INSTANCE;
         MatchDAO matchDAO = new MatchDAO();
         MatchService matchService = new MatchService(matchDAO);

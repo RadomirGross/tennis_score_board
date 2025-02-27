@@ -2,7 +2,6 @@ package com.gross.tennis_score_board.service;
 
 import com.gross.tennis_score_board.dao.MatchDAO;
 import com.gross.tennis_score_board.dto.MatchDTO;
-import com.gross.tennis_score_board.exceptions.MatchFetchException;
 import com.gross.tennis_score_board.mapper.MatchMapperImpl;
 import com.gross.tennis_score_board.model.Match;
 

@@ -47,7 +47,7 @@ public class NewMatchServlet extends HttpServlet {
         UUID matchUuid=ongoingMatchesService.addMatchScore(player1, player2);
 
         request.getSession().setAttribute("matchUuid", matchUuid);
-        response.sendRedirect("/match-score?uuid=" + matchUuid.toString());
+        response.sendRedirect("/match-score?uuid=" + matchUuid);
     }
 
     private void nameValidation(String player1Name, String player2Name, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -69,7 +69,6 @@ public class NewMatchServlet extends HttpServlet {
         if (player1Name.length() > 30 || player2Name.length() > 30) {
             request.setAttribute("errorMessage", "Имя не должно превышать 30 символов");
             request.getRequestDispatcher("/new-match.jsp").forward(request, response);
-            return;
         }
     }
 }

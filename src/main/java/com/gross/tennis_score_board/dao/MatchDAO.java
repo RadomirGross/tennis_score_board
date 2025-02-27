@@ -34,25 +34,6 @@ public class MatchDAO {
         }
     }
 
-    public List<Match> getAllMatches() {
-        try (Session session = sessionFactory.openSession()) {
-            List<Match> matches = session.createQuery("from Match", Match.class).list();
-            return matches;
-        } catch (Exception e) {
-            throw new RuntimeException("Error fetching matches :" + e.getMessage());
-        }
-
-    }
-
-    public List<Match> getMatchesByPlayerName(String playerName) {
-        try (Session session = sessionFactory.openSession()) {
-            Query<Match> query = session.createQuery("FROM Match m WHERE m.player1.name ILIKE :name OR " +
-                    "m.player2.name ILIKE :name ORDER BY id", Match.class);
-            query.setParameter("name", "%" + playerName + "%");
-            return query.list();
-        }
-    }
-
     public List<Match> getMatches(int offset, int size) {
         try (Session session = sessionFactory.openSession()) {
             Query<Match> query = session.createQuery("FROM Match ORDER BY id", Match.class);
@@ -64,7 +45,6 @@ public class MatchDAO {
         } catch (Exception e) {
             throw new MatchFetchException("Непредвиденная ошибка при получении матчей", e);
         }
-
     }
 
     public List<Match> getMatchesByPlayerNameWithPagination(String playerName, int offset, int size) {
@@ -75,8 +55,7 @@ public class MatchDAO {
             query.setFirstResult(offset);
             query.setMaxResults(size);
             return query.list();
-        }
-        catch (HibernateException e) {
+        } catch (HibernateException e) {
             throw new MatchFetchException("Ошибка при получении списка матчей по имени игрока: " + playerName, e);
         } catch (Exception e) {
             throw new MatchFetchException("Непредвиденная ошибка при получении матчей по имени игрока: " + playerName, e);
