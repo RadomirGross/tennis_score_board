@@ -11,10 +11,10 @@
 <body>
 <h1>Теннисное Табло</h1>
 <nav>
-    <form action="/new-match">
+    <form action="${pageContext.request.contextPath}/new-match">
         <button type="submit">Создать новый матч</button>
     </form>
-    <form action="/matches">
+    <form action="${pageContext.request.contextPath}/matches">
         <button type="submit">Завершенные матчи</button>
     </form>
 </nav>

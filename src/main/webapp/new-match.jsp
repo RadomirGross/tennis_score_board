@@ -13,7 +13,7 @@
 
 
 
-<form action="/new-match" method="post">
+<form action="${pageContext.request.contextPath}/new-match" method="post">
     <label>
         Имя игрока 1:
         <input type="text" name="player1" value="<%=

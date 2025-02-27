@@ -80,21 +80,14 @@ public class MatchScoreServlet extends HttpServlet {
 
             if ("true".equals(saveMatch)) {
                 finishedMatchesPersistenceService.saveMatch(matchUuid, winner);
-                resp.sendRedirect("/");
+                resp.sendRedirect(req.getContextPath()+"/");
                 return;
             }
 
             System.out.println("Point added to Player: " + playerIdString + ", for match: " + matchUuid);
 
-            resp.sendRedirect("/match-score?uuid=" + matchUuid);
-         /*   req.setAttribute("uuid", matchUuid);
-            req.setAttribute("matchScore", matchScore);
-            req.setAttribute("player1", matchScore.getPlayer1());
-            req.setAttribute("player2", matchScore.getPlayer2());
-            req.setAttribute("matchFinished", matchScore.getMatchWinner() != null);
-            req.setAttribute("matchWinner", matchScore.getMatchWinner());
+            resp.sendRedirect(req.getContextPath()+"/match-score?uuid=" + matchUuid);
 
-            req.getRequestDispatcher("match-score.jsp").forward(req, resp);*/
         } catch (IllegalArgumentException e) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid input data");
         }

@@ -47,7 +47,7 @@ public class NewMatchServlet extends HttpServlet {
         UUID matchUuid=ongoingMatchesService.addMatchScore(player1, player2);
 
         request.getSession().setAttribute("matchUuid", matchUuid);
-        response.sendRedirect("/match-score?uuid=" + matchUuid);
+        response.sendRedirect(request.getContextPath()+"/match-score?uuid=" + matchUuid);
     }
 
     private void nameValidation(String player1Name, String player2Name, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

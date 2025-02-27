@@ -40,7 +40,7 @@
                     ${matchScore.gameScore.player1Points.score}
             </td>
             <td>
-                <form action="/match-score" method="post">
+                <form action="${pageContext.request.contextPath}/match-score" method="post">
                     <input type="hidden" name="player_id" value="1">
                     <input type="hidden" name="match_uuid" value="${uuid}">
                     <button class="win-button" type="submit" ${matchFinished ? 'disabled' : ''}>
@@ -57,7 +57,7 @@
                     ${matchScore.gameScore.player2Points.score}
             </td>
             <td>
-                <form action="/match-score" method="post">
+                <form action="${pageContext.request.contextPath}/match-score" method="post">
                     <input type="hidden" name="player_id" value="2">
                     <input type="hidden" name="match_uuid" value="${uuid}">
                     <button class="win-button" type="submit" ${matchFinished ? 'disabled' : ''}>
@@ -91,7 +91,7 @@
 <c:if test="${matchFinished}">
     <h2>Матч завершен!</h2>
     <h3>Победитель: ${matchWinner.name}</h3>
-    <form action="/match-score" method="post">
+    <form action="${pageContext.request.contextPath}/match-score" method="post">
         <input type="hidden" name="saveMatch" value="true">
         <input type="hidden" name="match_uuid" value="${uuid}">
         <button type="submit">Вернуться на главную</button>

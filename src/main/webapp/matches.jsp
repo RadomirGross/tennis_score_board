@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <script>
         function goToPage(pageNumber) {
-            var url = 'matches?page_number=' + pageNumber;
+            var url = '${pageContext.request.contextPath}/matches?page_number=' + pageNumber;
 
             <c:if test="${not empty filter_by_player_name}">
             url += '&filter_by_player_name=' + encodeURIComponent('${filter_by_player_name}');
@@ -22,7 +22,7 @@
 <body>
 <h1>Завершенные матчи</h1>
 
-<form action="/matches" method="get">
+<form action="${pageContext.request.contextPath}/matches" method="get">
     <label>
         Найти матчи игрока:
         <input type="text" name="filter_by_player_name" value="${filter_by_player_name}">
@@ -80,6 +80,6 @@
         Вперед
     </button>
 </div>
-<button onclick="window.location.href='/'">Вернуться на главную</button>
+<button onclick="window.location.href='${pageContext.request.contextPath}/'">Вернуться на главную</button>
 </body>
 </html>
